@@ -30,12 +30,9 @@ def new_task():
         chosen_date_label.place(x = 180, y = 5)
     
     def choose_deadline():
-        global chosen_deadline
-        chosen_deadline = cal.get_date()
-
         chosen_deadline_label = tk.Label(
             middle_frame,
-            text = chosen_deadline,
+            text = cal.get_date(),
             font = ('Montserrat', '12', 'bold'),
             background = "#970000",
             foreground = "#FFFFFF"
