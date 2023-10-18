@@ -20,6 +20,7 @@ from tasks_list_database import tasks_list
 # Created on : 17. 10. 2023, 17:32:05
 # Author     : prohi
 
+
 class MainWindow(tk.TK):
 
     dbManager = None
@@ -90,7 +91,7 @@ class MainWindow(tk.TK):
         self.resizable(0, 0)
         self.configure(bg="#212121")
         
-        self.protocol("WM_DELETE_WINDOW", self.exitWindow)
+        self.protocol("WM_DELETE_WINDOW", self.exit_window)
         
         self.createWindow()
         
@@ -106,7 +107,7 @@ class MainWindow(tk.TK):
         print("Hi")
         
 
-    def exitWindow(self):
+    def exit_window(self):
 #        if len(self.taskDescriptionTextfield.get()) != 0:
 #            answer = messagebox.askyesno("Close New Task", "If you close the window, the changes will be lost.\nClose the New Task?")
 #            if answer:
@@ -132,7 +133,7 @@ class MainWindow(tk.TK):
     def show(self):
         self.win.pack()
 
-    def createWindow(self):
+    def create_window(self):
         
         self.rightFrame = tk.Frame(
             None,
@@ -255,7 +256,7 @@ class MainWindow(tk.TK):
             text="EXIT",
             font=('Arial', '11'),
             width=21,
-            command=self.exitWindow,
+            command=self.exit_window,
             background='#970000',
             foreground='#FFFFFF'
         )
