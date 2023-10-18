@@ -380,7 +380,7 @@ class MainWindow(tk.TK):
             text="SEE TASK",
             font=('Arial', '11'),
             width=18,
-            command=see_task,
+            command=see__task,
             background='#027853',
             foreground='#FFFFFF'
         )
