@@ -12,61 +12,7 @@ from DBManager import *
 
 
 class MainWindow(tk.Tk):
-
-    dbManager = None
-    
-    rightFrame = None
-    headerLabel = None
-    refreshButton = None
-    taskListButton = None
-    delegatedTaskListButton = None
-    projectListButton = None
-    catchBoxButton = None
-    calendarButton = None
-    revisionButton = None
-    maybeListButton = None
-    birthdaysListButton = None
-    exitButton = None
-        
-    topFrame = None
-    topLeftFrame = None
-    topLeftFrameHeader = None
-    myDaySignLabel = None
-    
-    topRightFrame = None
-    topRightFrameHeader = None
-    dateSignLabel = None
-    dateLabel = None
-    weekdaySignLabel = None
-    weekdayLabel = None
-    signLabel = None
-    
-    middleLeftFrame = None
-    middleRightFrame = None
-    doneButton = None
-    seeTaskButton = None
-    doItTommorowButton = None
-    moveToButton = None
-    deleteButton = None
-    remarkFieldLabel = None
-    todayTasksListbox = None
-    
-    bottomLeftFrame = None
-    remarkListboxLabel = None
-    remarkListbox = None
-    
-    veryBottomFrame1 = None
-    catchItButton = None
-    adhocTaskButton = None
-    
-    veryBottomFrame2 = None
-    newTaskButton = None
-    
-    veryBottomFrame3 = None
-    addRemarkButton = None
-    addEventButton = None
-    
-    
+   
 #    current_date = datetime.datetime.now()
 #    date_string = current_date.strftime("%d/%m/%Y")
 #    result_tasks = []
@@ -85,8 +31,6 @@ class MainWindow(tk.Tk):
         
         self.protocol("WM_DELETE_WINDOW", self.exit_window)
         
-        self.createWindow()
-        
 #        self.cal = Calendar(
 #            self.dlg,
 #            selectmode='day',
@@ -95,41 +39,44 @@ class MainWindow(tk.Tk):
 #        )
 #        self.cal.place(x=330, y=160)
 
-    def insert_data_to_today_tasks():
+    def insert_data_to_today_tasks(self):
         print("Hi")
      
-    def tasks_list():
+    def tasks_list(self):
         print("Hi")
         
-    def task_done():
+    def task_done(self):
         print("Hi") 
         
-    def see_task():
+    def see_task(self):
         print("Hi")  
         
-    def do_task_tommorow():
+    def do_task_tomorrow(self):
         print("Hi")
     
-    def move_task_to():
+    def move_task_to(self):
         print("Hi")
         
-    def delete_task_from_database():
+    def delete_task_from_database(self):
         print("Hi")
         
-    def catch_idea():
+    def delegated_tasks_list(self):
         print("Hi")
         
-    def adhoc_task():
+    def catch_idea(self):
+        print("Hi")
+        
+    def adhoc_task(self):
         adht = AdhocTaskDialog(self,self.dbManager)
         adht.show
         
-    def new_task():
+    def new_task(self):
         print("Hi")
         
-    def add_remark():
+    def add_remark(self):
         print("Hi")
         
-    def add_event():
+    def add_event(self):
         print("Hi")
 
     def exit_window(self):
@@ -156,7 +103,8 @@ class MainWindow(tk.Tk):
         self.destroy()
 
     def show(self):
-        self.win.pack()
+        self.create_window()
+        self.mainloop()
 
     def create_window(self):
         
@@ -165,7 +113,8 @@ class MainWindow(tk.Tk):
             width=230,
             height=600,
             background="#2F3030"
-        ).place(x=570, y=0)
+        )
+        self.rightFrame.place(x=570, y=0)
         
         self.headerLabel = tk.Label(
             self.rightFrame,
@@ -173,7 +122,8 @@ class MainWindow(tk.Tk):
             font=('Montserrat', '40'),
             background="#2F3030",
             foreground="#474747"
-        ).place(x=15, y=30)
+        )
+        self.headerLabel.place(x=15, y=30)
 
         self.refreshButton = tk.Button(
             self.rightFrame,
@@ -183,7 +133,8 @@ class MainWindow(tk.Tk):
             command=self.insert_data_to_today_tasks,
             background='#00BFC5',
             foreground='#000000'
-        ).place(x=140, y=5)
+        )
+        self.refreshButton.place(x=140, y=5)
 
         self.taskListButton = tk.Button(
             self.rightFrame,
@@ -193,7 +144,8 @@ class MainWindow(tk.Tk):
             command=self.tasks_list,
             background='#0003C8',
             foreground='#FFFFFF'
-        ).place(x=16, y=160)
+        )
+        self.taskListButton.place(x=16, y=160)
 
         self.delegatedTaskListButton = tk.Button(
             self.rightFrame,
@@ -203,7 +155,8 @@ class MainWindow(tk.Tk):
             command=self.delegated_tasks_list,
             background='#0003C8',
             foreground='#FFFFFF'
-        ).place(x=16, y=200)
+        )
+        self.delegatedTaskListButton.place(x=16, y=200)
 
         self.projectListButton = tk.Button(
             self.rightFrame,
@@ -213,7 +166,8 @@ class MainWindow(tk.Tk):
             command=None,
             background='#0003C8',
             foreground='#FFFFFF'
-        ).place(x=16, y=240)
+        )
+        self.projectListButton.place(x=16, y=240)
 
         self.catchBoxButton = tk.Button(
             self.rightFrame,
@@ -223,7 +177,8 @@ class MainWindow(tk.Tk):
             command=None,
             background='#0003C8',
             foreground='#FFFFFF'
-        ).place(x=16, y=280)
+        )
+        self.catchBoxButton.place(x=16, y=280)
 
         self.calendarButton = tk.Button(
             self.rightFrame,
@@ -233,7 +188,8 @@ class MainWindow(tk.Tk):
             command=None,
             background='#0003C8',
             foreground='#FFFFFF'
-        ).place(x=16, y=320)
+        )
+        self.calendarButton.place(x=16, y=320)
 
         self.revisionButton = tk.Button(
             self.rightFrame,
@@ -243,7 +199,8 @@ class MainWindow(tk.Tk):
             command=None,
             background='#0003C8',
             foreground='#FFFFFF'
-        ).place(x=16, y=360)
+        )
+        self.revisionButton.place(x=16, y=360)
 
         self.maybeListButton = tk.Button(
             self.rightFrame,
@@ -253,7 +210,8 @@ class MainWindow(tk.Tk):
             command=None,
             background='#0003C8',
             foreground='#FFFFFF'
-        ).place(x=16, y=400)
+        )
+        self.maybeListButton.place(x=16, y=400)
 
         self.birthdaysListButton = tk.Button(
             self.rightFrame,
@@ -263,7 +221,8 @@ class MainWindow(tk.Tk):
             command=None,
             background='#0003C8',
             foreground='#FFFFFF'
-        ).place(x=16, y=440)
+        )
+        self.birthdaysListButton.place(x=16, y=440)
 
         self.exitButton = tk.Button(
             self.rightFrame,
@@ -273,21 +232,24 @@ class MainWindow(tk.Tk):
             command=self.exit_window,
             background='#970000',
             foreground='#FFFFFF'
-        ).place(x=16, y=480)
+        )
+        self.exitButton.place(x=16, y=480)
 
         self.topLeftFrame = tk.Frame(
             None,
             width=270,
             height=120,
             background="#2F3030"
-        ).place(x=10, y=10)
+        )
+        self.topLeftFrame.place(x=10, y=10)
 
         self.topLeftFrameHeader = tk.Frame(
             self.topLeftFrame,
             width=250,
             height=90,
             background='#6A6A6A'
-        ).place(x=8, y=18)
+        )
+        self.topLeftFrameHeader.place(x=8, y=18)
 
         self.myDaySign = tk.Label(
             self.topLeftFrameHeader,
@@ -295,21 +257,24 @@ class MainWindow(tk.Tk):
             font=("Open Sans", "30"),
             background="#6A6A6A",
             foreground="#FFFFFF"
-        ).place(x=45, y=20)
+        )
+        self.myDaySign.place(x=45, y=20)
 
         self.topRightFrame = tk.Frame(
             None,
             width=270,
             height=120,
             background="#2F3030"
-        ).place(x=290, y=10)
+        )
+        self.topRightFrame.place(x=290, y=10)
 
         self.topRightFrameHeader = tk.Frame(
             self.topRightFrame,
             width=250,
             height=90,
             background='#6A6A6A'
-        ).place(x=8, y=18)
+        )
+        self.topRightFrameHeader.place(x=8, y=18)
 
         self.dateSign = tk.Label(
             self.topRightFrameHeader,
@@ -317,7 +282,8 @@ class MainWindow(tk.Tk):
             font=("Open Sans ", "20"),
             background="#6A6A6A",
             foreground="#FFFFFF"
-        ).place(x=20, y=8)
+        )
+        self.dateSign.place(x=20, y=8)
 
         self.dateLabel = tk.Label(
             self.topRightFrameHeader,
@@ -325,7 +291,8 @@ class MainWindow(tk.Tk):
             font=("Open Sans ", "20"),
             background="#6A6A6A",
             foreground="#FFFFFF"
-        ).place(x=95, y=8)
+        )
+        self.dateLabel.place(x=95, y=8)
 
         self.weekdaySign = tk.Label(
             self.topRightFrameHeader,
@@ -333,7 +300,8 @@ class MainWindow(tk.Tk):
             font=("Open Sans ", "20"),
             background="#6A6A6A",
             foreground="#FFFFFF"
-        ).place(x=20, y=45)
+        )
+        self.weekdaySign.place(x=20, y=45)
 
         self.weekdayLabel = tk.Label(
             self.topRightFrameHeader,
@@ -341,7 +309,8 @@ class MainWindow(tk.Tk):
             font=("Open Sans ", "20"),
             background="#6A6A6A",
             foreground="#FFFFFF"
-        ).place(x=95, y=45)
+        )
+        self.weekdayLabel.place(x=95, y=45)
 
         self.signLabel = tk.Label(
             self.rightFrame,
@@ -349,21 +318,24 @@ class MainWindow(tk.Tk):
             font=("Edwardian Script ITC", "25"),
             background='#2F3030',
             foreground='#FFFFFF'
-        ).place(x=125, y=550)
+        )
+        self.signLabel.place(x=125, y=550)
 
         self.middleLeftFrame = tk.Frame(
             None,
             width=320,
             height=235,
             background="#2F3030"
-        ).place(x=10, y=155)
+        )
+        self.middleLeftFrame.place(x=10, y=155)
 
         self.middleRightFrame = tk.Frame(
             None,
             width=202,
             height=230,
             background="#2F3030"
-        ).place(x=350, y=157)
+        )
+        self.middleRightFrame.place(x=350, y=157)
 
         self.doneButton = tk.Button(
             self.middleRightFrame,
@@ -373,7 +345,8 @@ class MainWindow(tk.Tk):
             command=self.task_done,
             background='#004C01',
             foreground='#FFFFFF'
-        ).place(x=20, y=20)
+        )
+        self.doneButton.place(x=20, y=20)
 
         self.seeTaskButton = tk.Button(
             self.middleRightFrame,
@@ -383,7 +356,8 @@ class MainWindow(tk.Tk):
             command=self.see_task,
             background='#027853',
             foreground='#FFFFFF'
-        ).place(x=20, y=60)
+        )
+        self.seeTaskButton.place(x=20, y=60)
 
         self.doItTommorowButton = tk.Button(
             self.middleRightFrame,
@@ -393,7 +367,8 @@ class MainWindow(tk.Tk):
             command=self.do_task_tomorrow,
             background='#027853',
             foreground='#FFFFFF'
-        ).place(x=20, y=100)
+        )
+        self.doItTommorowButton.place(x=20, y=100)
 
         self.moveToButton = tk.Button(
             self.middleRightFrame,
@@ -403,7 +378,8 @@ class MainWindow(tk.Tk):
             command=self.move_task_to,
             background='#027853',
             foreground='#FFFFFF'
-        ).place(x=20, y=140)
+        )
+        self.moveToButton.place(x=20, y=140)
 
         self.deleteButton = tk.Button(
             self.middleRightFrame,
@@ -413,7 +389,8 @@ class MainWindow(tk.Tk):
             command=self.delete_task_from_database,
             background='#970000',
             foreground='#FFFFFF'
-        ).place(x=20, y=180)
+        )
+        self.deleteButton.place(x=20, y=180)
 
         self.remarkFieldLabel = tk.Label(
             self.middleLeftFrame,
@@ -421,7 +398,8 @@ class MainWindow(tk.Tk):
             font=("Open Sans", "12", "bold"),
             background="#2F3030",
             foreground="#000000"
-        ).place(x=10, y=6)
+        )
+        self.remarkFieldLabel.place(x=10, y=6)
 
         self.todayTasksListbox = tk.Listbox(
             self.middleLeftFrame,
@@ -432,14 +410,16 @@ class MainWindow(tk.Tk):
             font=("Arial", "10", "bold"),
             foreground="#C2C2C2",
             background="#303030"
-        ).place(x=11, y=38)
+        )
+        self.taskListButton.place(x=11, y=38)
 
         self.bottomLeftFrame = tk.Frame(
             None,
             width=320,
             height=150,
             background="#2F3030"
-        ).place(x=10, y=400)
+        )
+        self.bottomLeftFrame.place(x=10, y=400)
 
         self.remarkListboxLabel = tk.Label(
             self.bottomLeftFrame,
@@ -447,21 +427,24 @@ class MainWindow(tk.Tk):
             font=("Open Sans", "12", "bold"),
             background="#2F3030",
             foreground="#000000"
-        ).place(x=10, y=6)
+        )
+        self.remarkListboxLabel.place(x=10, y=6)
 
         self.remarkListbox = tk.Listbox(
             self.bottomLeftFrame,
             width=49,
             height=6,
             background="#303030"
-        ).place(x=10, y=35)
+        )
+        self.remarkListbox.place(x=10, y=35)
 
         self.veryBottomFrame1 = tk.Frame(
             None,
             width=230,
             height=35,
             background="#2F3030"
-        ).place(x=10, y=565)
+        )
+        self.veryBottomFrame1.place(x=10, y=565)
 
         self.catchItButton = tk.Button(
             self.veryBottomFrame1,
@@ -471,7 +454,8 @@ class MainWindow(tk.Tk):
             command=self.catch_idea,
             background='#4F0082',
             foreground='#FFFFFF'
-        ).place(x=10, y=5)
+        )
+        self.catchItButton.place(x=10, y=5)
 
         self.adhocTaskButton = tk.Button(
             self.veryBottomFrame1,
@@ -481,14 +465,16 @@ class MainWindow(tk.Tk):
             command=self.adhoc_task,
             background='#A94102',
             foreground='#FFFFFF'
-        ).place(x=125, y=5)
+        )
+        self.adhocTaskButton.place(x=125, y=5)
 
         self.veryBottomFrame2 = tk.Frame(
             None,
             width=110,
             height=50,
             background="#2F3030"
-        ).place(x=240, y=555)
+        )
+        self.veryBottomFrame2.place(x=240, y=555)
 
         self.newTaskButton = tk.Button(
             self.veryBottomFrame2,
@@ -499,14 +485,16 @@ class MainWindow(tk.Tk):
             command=self.new_task,
             background='#004C01',
             foreground='#FFFFFF'
-        ).place(x=5, y=2)
+        )
+        self.newTaskButton.place(x=5, y=2)
 
         self.veryBottomFrame3 = tk.Frame(
             None,
             width=220,
             height=35,
             background="#2F3030"
-        ).place(x=347, y=565)
+        )
+        self.veryBottomFrame3.place(x=347, y=565)
 
         self.addRemarkButton = tk.Button(
             self.veryBottomFrame3,
@@ -516,7 +504,8 @@ class MainWindow(tk.Tk):
             command=self.add_remark,
             background='#9E019A',
             foreground='#FFFFFF'
-        ).place(x=8, y=5)
+        )
+        self.addRemarkButton.place(x=8, y=5)
 
         self.addEventButton = tk.Button(
             self.veryBottomFrame3,
@@ -526,6 +515,7 @@ class MainWindow(tk.Tk):
             command=self.add_event,
             background='#A8A803',
             foreground='#FFFFFF'
-        ).place(x=116, y=5)
+        )
+        self.addEventButton.place(x=116, y=5)
+  
         
-        self.pack()
