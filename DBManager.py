@@ -20,8 +20,6 @@ class DBManager():
         
     def saveAdhocTask(self, values):
         try:
-            self.cursor.execute('CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY, task_ID TEXT, task_or_action TEXT, keywords TEXT, expected_result TEXT, date TEXT, deadline TEXT, delegate_to TEXT, cooperate_with TEXT)')
-
             query = "INSERT INTO tasks (task_ID, task_or_action, keywords, expected_result, date, deadline, delegate_to, cooperate_with) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
             self.cursor.execute(query, values.values())
 
@@ -33,8 +31,6 @@ class DBManager():
             
     def saveTask(self, values):
         try:
-            self.cursor.execute('CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY, task_ID TEXT, task_or_action TEXT, keywords TEXT, expected_result TEXT, date TEXT, deadline TEXT, delegate_to TEXT, cooperate_with TEXT)')
-
             query = "INSERT INTO tasks (task_ID, task_or_action, keywords, expected_result, date, deadline, delegate_to, cooperate_with) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
             self.cursor.execute(query, values)
 
@@ -46,21 +42,20 @@ class DBManager():
             
     def saveDelegatedTask(self, values):
         try:
-            self.dcursor.execute('CREATE TABLE IF NOT EXISTS delegated_tasks (id INTEGER PRIMARY KEY, task_ID TEXT, task_or_action TEXT, keywords TEXT, expected_result TEXT, date TEXT, deadline TEXT, delegate_to TEXT, cooperate_with TEXT)')
-
-            query = "INSERT INTO delegated_tasks (task_ID, task_or_action, keywords, expected_result, date, deadline, delegate_to, cooperate_with) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            query = "INSERT INTO delegated_tasks (task_ID, task_or_action,"
+            " keywords, expected_result, date, deadline, delegate_to,"
+            " cooperate_with) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            
             self.cursor.execute(query, values)
 
-            self.dconn.commit()
-            self.dcursor.close()
+            self.conn.commit()
+            self.cursor.close()
 
         except Exception as e:
             messagebox.showerror("Error", "OOPS! " + str(e))
     
     def saveRemark(self, values):
         try:
-            self.cursor.execute('CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY, task_ID TEXT, task_or_action TEXT, keywords TEXT, expected_result TEXT, date TEXT, deadline TEXT, delegate_to TEXT, cooperate_with TEXT)')
-
 #            query = "INSERT INTO tasks (task_ID, task_or_action, keywords, expected_result, date, deadline, delegate_to, cooperate_with) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 #            self.cursor.execute(query, values)
 
@@ -80,10 +75,10 @@ class DBManager():
 
         except Exception as e:
             messagebox.showerror("Error", "OOPS! " + str(e))
-            
-    def getAllTasks(self):
+      
+    def findOne(self, tableName, id):
         try:
-            query = "SELECT * FROM tasks"
+            query = "SELECT * FROM {0} WHERE id={1}", tableName, id
             self.cursor.execute(query)
             res = self.cursor.fetchall()
             
@@ -93,3 +88,39 @@ class DBManager():
         except Exception as e:
             messagebox.showerror("Error", "OOPS! " + str(e))
         return res
+          
+    def findAll(self, tableName):
+        try:
+            query = "SELECT * FROM {0}", tableName
+            self.cursor.execute(query)
+            res = self.cursor.fetchall()
+            
+#            self.conn.commit()
+#            self.cursor.close()
+
+        except Exception as e:
+            messagebox.showerror("Error", "OOPS! " + str(e))
+        return res
+        
+    def createTMSdatabase(self):
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS tasks'
+            ' (id INTEGER PRIMARY KEY, task_ID TEXT, task_or_action TEXT,'
+            ' keywords TEXT, expected_result TEXT, date TEXT, deadline TEXT,'
+            ' delegate_to TEXT, cooperate_with TEXT)')
+            
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS tasks'
+            ' (id INTEGER PRIMARY KEY, task_ID TEXT, task_or_action TEXT,'
+            ' keywords TEXT, expected_result TEXT, date TEXT, deadline TEXT,'
+            ' delegate_to TEXT, cooperate_with TEXT)')
+            
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS delegated_tasks'
+            ' (id INTEGER PRIMARY KEY, task_ID TEXT, task_or_action TEXT,'
+            ' keywords TEXT, expected_result TEXT, date TEXT, deadline TEXT,'
+            ' delegate_to TEXT, cooperate_with TEXT)')
+            
+        self.cursor.execute('CREATE TABLE IF NOT EXISTS tasks'
+            ' (id INTEGER PRIMARY KEY, task_ID TEXT, task_or_action TEXT,'
+            ' keywords TEXT, expected_result TEXT, date TEXT, deadline TEXT,'
+            ' delegate_to TEXT, cooperate_with TEXT)')
+            
+        

@@ -1,10 +1,15 @@
 import tkinter as tk
 import time
-#import requests
+import requests
 #import sys
 #import datetime
 #from tkinter import messagebox
-from AdhocTaskDialog import *
+from AdhocTaskWindow import *
+from EventWindow import *
+from CatchIdeaWindow import *
+from RemarkWindow import *
+from TaskOverviewWindow import *
+from TaskWindow import *
 from DBManager import *
 
 # Created on : 17. 10. 2023, 17:32:05
@@ -64,20 +69,24 @@ class MainWindow(tk.Tk):
         print("Hi")
         
     def catch_idea(self):
-        print("Hi")
+        ci = CatchIdeaWindow(self.dbManager)
+        ci.show()
         
     def adhoc_task(self):
-        adht = AdhocTaskDialog(self,self.dbManager)
-        adht.show
+        adht = AdhocTaskWindow(self.dbManager)
+        adht.show()
         
     def new_task(self):
-        print("Hi")
+        tsk = TaskWindow(self.dbManager)
+        tsk.show()
         
     def add_remark(self):
-        print("Hi")
+        rmk = RemarkWindow(self.dbManager)
+        rmk.show()
         
     def add_event(self):
-        print("Hi")
+        addevt = EventWindow(self.dbManager)
+        addevt.show()
 
     def exit_window(self):
 #        if len(self.taskDescriptionTextfield.get()) != 0:
@@ -102,12 +111,38 @@ class MainWindow(tk.Tk):
 #            self.dlg.destroy()
         self.destroy()
 
+    def check_internet(self):
+        url = "https://www.google.com"
+        timeout = 5
+        try:
+            _ = requests.get(url, timeout=timeout)
+            self.onlineFrame1.configure(background="#007606")
+            self.onlineFrame2.configure(background="#007606")
+        except requests.ConnectionError:
+            self.onlineFrame1.configure(background="#9B0202")
+            self.onlineFrame2.configure(background="#9B0202")
+        self.after(10000, self.check_internet)
+
     def show(self):
         self.create_window()
+        
         self.mainloop()
+        self.after(10000, self.check_internet)
 
     def create_window(self):
+        self.build_right_frame()
+        self.build_top_left_frame()
+        self.build_top_right_frame()
+        self.build_middle_left_frame()
+        self.build_middle_right_frame()
+        self.build_bottom_left_frame()
+        self.build_very_bottom_frame1()
+        self.build_very_bottom_frame2()
+        self.build_very_bottom_frame3()
         
+        self.check_internet()
+
+    def build_right_frame(self):
         self.rightFrame = tk.Frame(
             None,
             width=230,
@@ -234,7 +269,17 @@ class MainWindow(tk.Tk):
             foreground='#FFFFFF'
         )
         self.exitButton.place(x=16, y=480)
-
+        
+        self.signLabel = tk.Label(
+            self.rightFrame,
+            text='by VK',
+            font=("Edwardian Script ITC", "25"),
+            background='#2F3030',
+            foreground='#FFFFFF'
+        )
+        self.signLabel.place(x=125, y=550)
+         
+    def build_top_left_frame(self):
         self.topLeftFrame = tk.Frame(
             None,
             width=270,
@@ -242,6 +287,14 @@ class MainWindow(tk.Tk):
             background="#2F3030"
         )
         self.topLeftFrame.place(x=10, y=10)
+        
+        self.onlineFrame1 = tk.Frame(
+            self.topLeftFrame,
+            width=250,
+            height=5,
+            background="#007606"
+        )
+        self.onlineFrame1.place(x=8, y=12)
 
         self.topLeftFrameHeader = tk.Frame(
             self.topLeftFrame,
@@ -259,7 +312,8 @@ class MainWindow(tk.Tk):
             foreground="#FFFFFF"
         )
         self.myDaySign.place(x=45, y=20)
-
+    
+    def build_top_right_frame(self):
         self.topRightFrame = tk.Frame(
             None,
             width=270,
@@ -267,6 +321,14 @@ class MainWindow(tk.Tk):
             background="#2F3030"
         )
         self.topRightFrame.place(x=290, y=10)
+        
+        self.onlineFrame2 = tk.Frame(
+            self.topRightFrame,
+            width=250,
+            height=5,
+            background="#007606"
+        )
+        self.onlineFrame2.place(x=8, y=12)
 
         self.topRightFrameHeader = tk.Frame(
             self.topRightFrame,
@@ -311,16 +373,8 @@ class MainWindow(tk.Tk):
             foreground="#FFFFFF"
         )
         self.weekdayLabel.place(x=95, y=45)
-
-        self.signLabel = tk.Label(
-            self.rightFrame,
-            text='by VK',
-            font=("Edwardian Script ITC", "25"),
-            background='#2F3030',
-            foreground='#FFFFFF'
-        )
-        self.signLabel.place(x=125, y=550)
-
+    
+    def build_middle_left_frame(self):
         self.middleLeftFrame = tk.Frame(
             None,
             width=320,
@@ -328,7 +382,29 @@ class MainWindow(tk.Tk):
             background="#2F3030"
         )
         self.middleLeftFrame.place(x=10, y=155)
+        
+        self.remarkFieldLabel = tk.Label(
+            self.middleLeftFrame,
+            text="Tasks for today:",
+            font=("Open Sans", "12", "bold"),
+            background="#2F3030",
+            foreground="#000000"
+        )
+        self.remarkFieldLabel.place(x=10, y=6)
 
+        self.todayTasksListbox = tk.Listbox(
+            self.middleLeftFrame,
+            width=42,
+            height=11,
+            selectforeground="#FFFFFF",
+            selectbackground="#181818",
+            font=("Arial", "10", "bold"),
+            foreground="#C2C2C2",
+            background="#303030"
+        )
+        self.taskListButton.place(x=11, y=38)
+    
+    def build_middle_right_frame(self):
         self.middleRightFrame = tk.Frame(
             None,
             width=202,
@@ -336,7 +412,7 @@ class MainWindow(tk.Tk):
             background="#2F3030"
         )
         self.middleRightFrame.place(x=350, y=157)
-
+        
         self.doneButton = tk.Button(
             self.middleRightFrame,
             text="DONE",
@@ -391,28 +467,8 @@ class MainWindow(tk.Tk):
             foreground='#FFFFFF'
         )
         self.deleteButton.place(x=20, y=180)
-
-        self.remarkFieldLabel = tk.Label(
-            self.middleLeftFrame,
-            text="Tasks for today:",
-            font=("Open Sans", "12", "bold"),
-            background="#2F3030",
-            foreground="#000000"
-        )
-        self.remarkFieldLabel.place(x=10, y=6)
-
-        self.todayTasksListbox = tk.Listbox(
-            self.middleLeftFrame,
-            width=42,
-            height=11,
-            selectforeground="#FFFFFF",
-            selectbackground="#181818",
-            font=("Arial", "10", "bold"),
-            foreground="#C2C2C2",
-            background="#303030"
-        )
-        self.taskListButton.place(x=11, y=38)
-
+    
+    def build_bottom_left_frame(self):
         self.bottomLeftFrame = tk.Frame(
             None,
             width=320,
@@ -437,7 +493,8 @@ class MainWindow(tk.Tk):
             background="#303030"
         )
         self.remarkListbox.place(x=10, y=35)
-
+    
+    def build_very_bottom_frame1(self):
         self.veryBottomFrame1 = tk.Frame(
             None,
             width=230,
@@ -467,7 +524,8 @@ class MainWindow(tk.Tk):
             foreground='#FFFFFF'
         )
         self.adhocTaskButton.place(x=125, y=5)
-
+    
+    def build_very_bottom_frame2(self):
         self.veryBottomFrame2 = tk.Frame(
             None,
             width=110,
@@ -487,7 +545,8 @@ class MainWindow(tk.Tk):
             foreground='#FFFFFF'
         )
         self.newTaskButton.place(x=5, y=2)
-
+      
+    def build_very_bottom_frame3(self):  
         self.veryBottomFrame3 = tk.Frame(
             None,
             width=220,
@@ -517,5 +576,6 @@ class MainWindow(tk.Tk):
             foreground='#FFFFFF'
         )
         self.addEventButton.place(x=116, y=5)
-  
+    
+        
         
